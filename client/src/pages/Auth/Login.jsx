@@ -5,31 +5,28 @@ import { login } from '../../services/api';
 import { Link } from 'react-router-dom';
 import Notification from '../../../src/components/Notification/Notification';
 
-
 const Login = () => {
   const [credentials, setCredentials] = useState({
     email: '',
     password: ''
   });
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [notification, setNotification] = useState(null);
   const navigate = useNavigate();
-      const [notification, setNotification] = useState(null);
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await login(credentials);
       localStorage.setItem('token', response.data.token);
-     setNotification({ message: 'Sucessfully Login', type: 'success' });
-     setTimeout(()=>{  
-       navigate('/');
-
-        },500)
+      setNotification({ message: 'Successfully Login', type: 'success' });
+      setTimeout(() => {
+        navigate('/');
+      }, 500);
     } catch (err) {
       setError('Invalid credentials');
-           setNotification({ message: 'Login failed', type: 'error' });
-
+      setNotification({ message: 'Login failed', type: 'error' });
     }
   };
 
@@ -53,15 +50,25 @@ const Login = () => {
               required
             />
           </div>
+
           <div className="mb-6">
             <label className="block text-gray-700 mb-2">Password</label>
-            <input
-              type="password"
-              value={credentials.password}
-              onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
-              className="w-full p-2 border border-gray-300 rounded"
-              required
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                value={credentials.password}
+                onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+                className="w-full p-2 border border-gray-300 rounded pr-10"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute inset-y-0 right-0 px-3 text-gray-600 hover:text-gray-800 focus:outline-none"
+              >
+                {showPassword ? 'Hide' : 'Show'}
+              </button>
+            </div>
           </div>
 
           <button
@@ -78,13 +85,14 @@ const Login = () => {
           </div>
         </form>
       </div>
+
       {notification && (
-              <Notification
-                message={notification.message}
-                type={notification.type}
-                onClose={() => setNotification(null)}
-              />
-         )}
+        <Notification
+          message={notification.message}
+          type={notification.type}
+          onClose={() => setNotification(null)}
+        />
+      )}
     </div>
   );
 };

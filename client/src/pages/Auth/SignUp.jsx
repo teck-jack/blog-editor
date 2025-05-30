@@ -15,7 +15,8 @@ const [formData, setFormData] = useState({
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
     const [notification, setNotification] = useState(null);
-  
+    const [showPassword, setShowPassword] = useState(false);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -79,19 +80,30 @@ const [formData, setFormData] = useState({
           </div>
           <div className="mb-4">
             <label className="block text-gray-700 mb-2">Password</label>
+            <div className='relative'>
+
             <input
-              type="password"
+                type={showPassword ? 'text' : 'password'}
               value={formData.password}
               onChange={(e) => setFormData({...formData, password: e.target.value})}
               className="w-full p-2 border border-gray-300 rounded"
               required
               minLength={6}
+
             />
+            <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute inset-y-0 right-0 px-3 text-gray-600 hover:text-gray-800 focus:outline-none"
+              >
+                {showPassword ? 'Hide' : 'Show'}
+              </button>
+            </div>
           </div>
           <div className="mb-6">
             <label className="block text-gray-700 mb-2">Confirm Password</label>
             <input
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               value={formData.confirmPassword}
               onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
               className="w-full p-2 border border-gray-300 rounded"
