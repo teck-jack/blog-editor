@@ -14,7 +14,7 @@ const Editor = ({ blog, onSave }) => {
   const [notification, setNotification] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
 
-  // Auto-save after 5 seconds of inactivity
+  // Auto-save after 5 seconds of inactivitys
   useEffect(() => {
     const timer = setTimeout(() => {
       if (title || content) {

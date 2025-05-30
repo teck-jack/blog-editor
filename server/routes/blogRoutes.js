@@ -7,7 +7,6 @@ const blogController = require('../controllers/blogController');
 router.post('/save-draft', authenticate, blogController.saveDraft);
 router.post('/publish', authenticate, blogController.publishBlog);
 
-// Public routes
 router.get('/',authenticate, blogController.getAllBlogs);
 router.get('/:id',authenticate, blogController.getBlogById);
 router.delete('/:id',authenticate, blogController.deleteBlog);

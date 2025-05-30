@@ -6,7 +6,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Name is required'],
     trim: true,
-    // Remove unique: true if it exists
   },
   email: {
     type: String,
@@ -27,7 +26,6 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-// Remove any existing name index if it exists
 userSchema.pre('save', async function(next) {
   const collection = this.constructor.db.collection(this.constructor.collection.name);
   const indexes = await collection.indexes();
