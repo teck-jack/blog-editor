@@ -43,13 +43,17 @@ Create a .env file in the server directory:
 setup env in server
 .env
 MONGO_URI=mongodb://localhost:27017/blog-editor
-PORT=5000
+
+PORT=5173
+
 JWT_SECRET=your_strong_jwt_secret_here
+
 
 Start the backend server:
 
 bash
 npm run dev
+
 3. Frontend Setup
 bash
 cd ../client
@@ -58,7 +62,7 @@ Start the frontend development server:
 
 bash
 npm start
-The application should now be running at http://localhost:3000.
+The application should now be running at http://localhost:5173.
 ----------------------------------------------------------------------------------------------------------------
 
 Project Structure
